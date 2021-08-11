@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.softmaq.domain.Profile;
+import br.com.softmaq.domain.User;
 import br.com.softmaq.repository.ProfileRepository;
 
 @Service
@@ -21,5 +22,13 @@ public class ProfileService {
 	
 	public Optional<Profile> findById(Long id) {
 		return profileRepository.findById(id);
+	}
+
+	public void delete(Profile profile) {
+		profileRepository.delete(profile);
+	}
+
+	public Profile save(Profile profile) {
+		return profileRepository.save(profile);
 	}
 }
