@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.softmaq.domain.Profile;
-import br.com.softmaq.domain.User;
+import br.com.softmaq.exception.ResourceNotFoundException;
 import br.com.softmaq.repository.ProfileRepository;
 
 @Service
@@ -30,5 +30,18 @@ public class ProfileService {
 
 	public Profile save(Profile profile) {
 		return profileRepository.save(profile);
+	}
+
+	public Profile updateProfileById(Long id, Profile profileUpdate) {
+		
+		findById(id).orElseThrow( () -> new ResourceNotFoundException("Profile "+ id + " Not Found"));
+		profileUpdate.setProfileId(id);
+		return save(profileUpdate);
+	}
+
+	public void deleteProfile(Long id) {
+		Profile profile = findById(id).orElseThrow( () -> new ResourceNotFoundException("Profile "+ id + " Not Found"));
+		profileRepository.delete(profile);
+		
 	}
 }
