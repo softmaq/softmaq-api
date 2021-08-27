@@ -31,30 +31,30 @@ public class ProfileController {
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Profile> findById(@PathVariable Long id) {
+	public Optional<Profile> findById(@PathVariable Long id) throws Exception {
 		return profileService.findById(id);
 	}
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Profile saveProfile(@RequestBody Profile profile) {
+	public Profile saveProfile(@RequestBody Profile profile) throws Exception {
 		return profileService.save(profile);
 	}
 
 	@PutMapping
-	public Profile updateProfile(@RequestBody Profile profile) {
+	public Profile updateProfile(@RequestBody Profile profile) throws  Exception {
 		return profileService.save(profile);
 	}
 	
 	@PutMapping("/{id}")
-	public Profile updateProfileById(@PathVariable Long id, @RequestBody Profile profileUpdate) {
+	public Profile updateProfileById(@PathVariable Long id, @RequestBody Profile profileUpdate) throws  Exception {
 		return profileService.updateProfileById(id,profileUpdate);
 
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.ACCEPTED)
-	public void deleteProfile(@PathVariable Long id) {
+	public void deleteProfile(@PathVariable Long id) throws Exception {
 		profileService.deleteProfile(id);
 	}
 

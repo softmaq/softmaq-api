@@ -15,11 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import br.com.softmaq.constant.Log;
 import br.com.softmaq.domain.User;
 import br.com.softmaq.repository.UserRepository;
+import br.com.softmaq.util.Util;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("v1/users")
+@Slf4j
 public class UserController {
 	
 	@Autowired
@@ -37,12 +43,14 @@ public class UserController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public User saveUser(@RequestBody User user) {
+	public User saveUser(@RequestBody User user) throws JsonProcessingException {
+		log.info(Log.MSG,"saveUser", "save", "Salvando: " + Util.Obj2JSon(user));
 		return userRepository.save(user);
 	}
 	
 	@PutMapping
-	public User updateUser(@RequestBody User user) {
+	public User updateUser(@RequestBody User user) throws JsonProcessingException {
+		log.info(Log.MSG,"updateUser", "update", "Atualizando: " + Util.Obj2JSon(user));
 		return userRepository.save(user);
 	}
 	
@@ -55,4 +63,5 @@ public class UserController {
 			userRepository.delete(user.get());
 		}
 	}
+	
 }
